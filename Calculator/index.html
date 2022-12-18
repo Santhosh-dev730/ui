@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Calculator</title>
+    <link rel="shortcut icon" href="https://bulma.io/favicons/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js" integrity="sha256-kXTEJcRFN330VirZFl6gj9+UM6gIKW195fYZeR3xDhc=" crossorigin="anonymous"></script>
+</head>
+<style>
+    #outside_box {
+        width: 370px;
+        height: 480px;
+    }
+
+    #inner_box {
+        height: 150px;
+        width: 100%;
+        border-style: ridge;
+    }
+</style>
+<body>
+
+    <div class="section" id="app">
+        <div class="level">
+            <div class="level-item">
+                <div class="box" id="outside_box">
+                    <p class="title is-5 has-text-centered">
+                        CALCULATOR
+                    </p>
+                    <br>
+                    <div class="box is-shadowless" id="inner_box">
+                        <p class="subtitle has-text-right mt-6 mr-5">
+                            [[expression || 0]]
+                        </p>
+                        <p class="subtitle has-text-right mr-5 mt-4">
+                            [[result]]
+                        </p>
+                    </div>
+                    <div class="columns is-multiline is-centered is-mobile">
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="show_history">
+                            H
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="clear_display">
+                            C
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="backspace">
+                            <span class="icon">
+                                <i class="fa-solid fa-delete-left"></i>
+                            </span>
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('/')">
+                            <span class="icon">
+                                <i class="fa-solid fa-divide"></i>
+                            </span>
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('7')">
+                            7
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('8')">
+                            8
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('9')">
+                            9
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('*')">
+                            <span class="icon">
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('4')">
+                            4
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('5')">
+                            5
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('6')">
+                            6
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('-')">
+                            <span class="icon">
+                                <i class="fa-solid fa-minus"></i>
+                            </span>
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('1')">
+                            1
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('2')">
+                            2
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('3')">
+                            3
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('+')">
+                            <span class="icon">
+                                <i class="fa-solid fa-plus"></i>
+                            </span>
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium"></div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="display('0')">
+                            0
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-bold is-clickable" @click="display('.')">
+                            .
+                        </div>
+                        <div class="column is-3 has-text-centered has-text-weight-medium is-clickable" @click="calculate">
+                            <span class="icon">
+                                <i class="fa-solid fa-equals"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="history-modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">History</p>
+                    <button class="delete" @click="close_history_modal"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="block" v-for="val in history">
+                        [[val]]
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
