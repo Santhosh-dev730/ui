@@ -58,6 +58,7 @@ let vm = new Vue({
                 return parseFloat(result_data[0]) + parseFloat(result_data[1]);
             } else if (this.expression.includes("-")) {
                 let result_data = this.expression.split("-");
+                console.log(next_value.toPrecision(1));
                 return parseFloat(result_data[0]) - parseFloat(result_data[1]);
             } else if (this.expression.includes("*")) {
                 let result_data = this.expression.split("*");
